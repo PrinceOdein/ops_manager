@@ -1,0 +1,11 @@
+# Python virtual environment
+ops_manager/
+
+# Python junk
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables
+.env
