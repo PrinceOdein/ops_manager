@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from app.models import user  # noqa
 from app.core.database import Base, engine
 from app.api import users
+from app.api import auth
 
 app = FastAPI(title="Ops Manager", version="1.0.0")
 Base.metadata.create_all(bind=engine)
@@ -12,6 +13,7 @@ templates = Jinja2Templates(directory="app/templates")
 print("Ops Manager is running...")
 
 app.include_router(users.router)
+app.include_router(auth.router)
 
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):

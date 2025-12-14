@@ -4,6 +4,8 @@ from app.schemas.user import UserCreate, UserOut
 from app.models.user import User
 from app.api.deps import get_db
 from passlib.context import CryptContext
+from app.api.deps import get_current_user
+
 
 router = APIRouter(prefix="/users", tags=["users"])
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -26,3 +28,8 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+@router.get("/me", response_model=UserOut)
+def read_me(current_user = Depends(get_current_user)):
+    return current_user
+
