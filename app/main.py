@@ -6,6 +6,7 @@ from app.core.database import Base, engine
 from app.api import users
 from app.api import auth
 from app.api import tasks
+from app.api import audit
 
 app = FastAPI(title="Ops Manager", version="1.0.0")
 Base.metadata.create_all(bind=engine)
@@ -16,6 +17,7 @@ print("Ops Manager is running...")
 app.include_router(users.router)
 app.include_router(auth.router)
 app.include_router(tasks.router)
+app.include_router(audit.router)
 
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):

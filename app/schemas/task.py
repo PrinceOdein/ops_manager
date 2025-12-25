@@ -17,3 +17,7 @@ class TaskOut(TaskBase):
 
     class Config:
         from_attributes = True
+
+class TaskUpdate(BaseModel):
+    status: str
+    assigned_to: Optional[int] = None
