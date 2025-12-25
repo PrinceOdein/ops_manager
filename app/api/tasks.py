@@ -9,11 +9,14 @@ from app.models.audit import AuditLog
 router = APIRouter(prefix="/tasks", tags=["tasks"])
 
 @router.post("/", response_model=TaskOut)
+
 def create_task(
     task: TaskCreate,
     db: Session = Depends(get_db),
     current_user = Depends(get_current_user)
 ):
+    assignee = None
+
     if task.assigned_to:
         assignee = db.query(User).filter(User.id == task.assigned_to).first()
     if not assignee:
